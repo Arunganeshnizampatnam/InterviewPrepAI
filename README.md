@@ -32,4 +32,4 @@ AI-Powered Interview Preparation Platform
 
 ## Author
 
-Arun Ganesh
+N.Arun Ganesh
