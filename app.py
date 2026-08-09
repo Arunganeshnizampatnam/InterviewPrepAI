@@ -81,31 +81,55 @@ def upload():
     text = ""
 
     for para in doc.paragraphs:
-        text += para.text
+        text += para.text + " "
+
+    # Detect Skills
+    skill_list = [
+        "Python",
+        "Java",
+        "C",
+        "C++",
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "SQL",
+        "Machine Learning",
+        "Deep Learning",
+        "Data Science",
+        "Flask",
+        "Django",
+        "Git",
+        "GitHub"
+    ]
 
     skills = []
 
-    if "Python" in text:
-        skills.append("Python")
+    for skill in skill_list:
+        if skill.lower() in text.lower():
+            skills.append(skill)
 
-    if "Machine Learning" in text:
-        skills.append("Machine Learning")
+    # Calculate Score
+    score = min(len(skills) * 10, 100)
 
-    if "HTML" in text:
-        skills.append("HTML")
+    # Suggestions
+    suggestions = []
 
-    if "CSS" in text:
-        skills.append("CSS")
+    if "project" not in text.lower():
+        suggestions.append("Add more projects")
 
-    score = len(skills) * 20
+    if "certification" not in text.lower():
+        suggestions.append("Include certifications")
+
+    if len(skills) < 5:
+        suggestions.append("Add more technical skills")
 
     return render_template(
         "result.html",
         filename=file.filename,
         score=score,
-        skills=skills
+        skills=skills,
+        suggestions=suggestions
     )
-
 
 if __name__ == "__main__":
     app.run(debug=True)

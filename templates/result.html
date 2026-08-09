@@ -13,7 +13,13 @@
     <h1>Resume Analysis</h1>
 
     <h2>Resume Uploaded Successfully!</h2>
-    <h3>Resume Score: {{ score }}/100</h3>
+   <h3>Skills Detected</h3>
+
+<ul>
+{% for skill in skills %}
+    <li>{{ skill }}</li>
+{% endfor %}
+</ul>
 
 <div class="progress">
     <div class="progress-bar" style="width: {{ score }}%;">
@@ -35,11 +41,11 @@
 
     <h3>Suggestions</h3>
 
-    <ul>
-        <li>Add more projects</li>
-        <li>Include certifications</li>
-        <li>Improve technical skills section</li>
-    </ul>
+<ul>
+{% for suggestion in suggestions %}
+    <li>{{ suggestion }}</li>
+{% endfor %}
+</ul>
 
 </div>
 
