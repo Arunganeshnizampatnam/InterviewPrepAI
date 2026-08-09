@@ -1,6 +1,6 @@
 # InterviewPrep
 
-AI-Powered Interview Preparation Platform
+ Interview Preparation Platform
 
 ## Features
 
