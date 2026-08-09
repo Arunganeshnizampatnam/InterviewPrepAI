@@ -1,4 +1,4 @@
-# InterviewPrepAI
+# InterviewPrep
 
 AI-Powered Interview Preparation Platform
 
