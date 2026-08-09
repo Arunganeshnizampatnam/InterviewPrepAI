@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Analysis</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Resume Analysis</h1>
+
+    <h2>Resume Uploaded Successfully!</h2>
+    <h3>Resume Score: {{ score }}/100</h3>
+
+<div class="progress">
+    <div class="progress-bar" style="width: {{ score }}%;">
+        {{ score }}%
+    </div>
+</div>
+
+    <p><b>File:</b> {{ filename }}</p>
+
+    <h3>Resume Score: {{ score }}/100</h3>
+
+    <h3>Skills Detected</h3>
+
+    <ul>
+        {% for skill in skills %}
+            <li>{{ skill }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Suggestions</h3>
+
+    <ul>
+        <li>Add more projects</li>
+        <li>Include certifications</li>
+        <li>Improve technical skills section</li>
+    </ul>
+
+</div>
+
+</body>
+</html>

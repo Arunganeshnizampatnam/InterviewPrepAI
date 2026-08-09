@@ -1,10 +1,12 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template, request
+from resume_parser import extract_text
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
     return render_template("index.html")
+
 
 @app.route("/aptitude")
 def aptitude():
@@ -22,6 +24,8 @@ def aptitude():
     }
     </script>
     """
+
+
 @app.route("/technical")
 def technical():
     return """
@@ -39,17 +43,19 @@ def technical():
     }
     </script>
     """
+
+
 @app.route("/hr")
 def hr():
     return "<h1>HR Interview Questions</h1>"
+
 
 @app.route("/resume")
 def resume():
     return """
     <h1>Resume Analyzer</h1>
 
-    <form action="/upload" method="post"
-          enctype="multipart/form-data">
+    <form action="/upload" method="post" enctype="multipart/form-data">
 
         <input type="file" name="resume">
 
@@ -59,38 +65,47 @@ def resume():
 
     </form>
     """
+
+
 @app.route("/upload", methods=["POST"])
 def upload():
+
     file = request.files["resume"]
 
     file.save(file.filename)
 
-    score = 85
+    from docx import Document
 
-    return f"""
-    <h1>Resume Analysis</h1>
+    doc = Document(file.filename)
 
-    <h2>Resume Uploaded Successfully!</h2>
+    text = ""
 
-    <p><b>File:</b> {file.filename}</p>
+    for para in doc.paragraphs:
+        text += para.text
 
-    <h3>Resume Score: {score}/100</h3>
+    skills = []
 
-    <h3>Skills Detected</h3>
-    <ul>
-        <li>Python</li>
-        <li>Machine Learning</li>
-        <li>HTML</li>
-        <li>CSS</li>
-    </ul>
+    if "Python" in text:
+        skills.append("Python")
 
-    <h3>Suggestions</h3>
-    <ul>
-        <li>Add more projects</li>
-        <li>Include certifications</li>
-        <li>Improve technical skills section</li>
-    </ul>
-    """
+    if "Machine Learning" in text:
+        skills.append("Machine Learning")
+
+    if "HTML" in text:
+        skills.append("HTML")
+
+    if "CSS" in text:
+        skills.append("CSS")
+
+    score = len(skills) * 20
+
+    return render_template(
+        "result.html",
+        filename=file.filename,
+        score=score,
+        skills=skills
+    )
+
+
 if __name__ == "__main__":
     app.run(debug=True)
-
